@@ -1,67 +1,60 @@
 import { createGlobalStyle } from 'styled-components';
 
-// css 변수 생성 필요 ( color, font-size, font-weight 등)
-
 const GlobalStyle = createGlobalStyle`
     @font-face {
-        font-family: 'Pretendard';
+        font-family: 'NotoSansKR';
         font-weight: 900;
         font-display: swap;
-        src: local('Pretendard Black'), url(./fonts/Pretendard-Black.woff2) format('woff2');
+        src: local('NotoSansKR Black'), url(./fonts/NotoSansKR-Black.ttf) format('ttf');
     }
     @font-face {
-        font-family: 'Pretendard';
+        font-family: 'NotoSansKR';
         font-weight: 800;
         font-display: swap;
-        src: local('Pretendard ExtraBold'), url(./fonts/Pretendard-ExtraBold.woff2) format('woff2');
+        src: local('NotoSansKR ExtraBold'), url(./fonts/NotoSansKR-ExtraBold.ttf) format('ttf');
     }
     @font-face {
-        font-family: 'Pretendard';
+        font-family: 'NotoSansKR';
         font-weight: 700;
         font-display: swap;
-        src: local('Pretendard Bold'), url(./fonts/Pretendard-Bold.woff2) format('woff2');
+        src: local('NotoSansKR Bold'), url(./fonts/NotoSansKR-Bold.ttf) format('ttf');
     }
     @font-face {
-        font-family: 'Pretendard';
+        font-family: 'NotoSansKR';
         font-weight: 600;
         font-display: swap;
-        src: local('Pretendard SemiBold'), url(./fonts/Pretendard-SemiBold.woff2) format('woff2');
+        src: local('NotoSansKR SemiBold'), url(./fonts/NotoSansKR-SemiBold.ttf) format('ttf');
     }
     @font-face {
-        font-family: 'Pretendard';
+        font-family: 'NotoSansKR';
         font-weight: 500;
         font-display: swap;
-        src: local('Pretendard Medium'), url(./fonts/Pretendard-Medium.woff2) format('woff2');
+        src: local('NotoSansKR Medium'), url(./fonts/NotoSansKR-Medium.ttf) format('ttf');
     }
     @font-face {
-        font-family: 'Pretendard';
+        font-family: 'NotoSansKR';
         font-weight: 400;
         font-display: swap;
-        src: local('Pretendard Regular'), url(./fonts/Pretendard-Regular.woff2) format('woff2');
+        src: local('NotoSansKR Regular'), url(./fonts/NotoSansKR-Regular.ttf) format('ttf');
     }
     @font-face {
-        font-family: 'Pretendard';
+        font-family: 'NotoSansKR';
         font-weight: 300;
         font-display: swap;
-        src: local('Pretendard Light'), url(./fonts/Pretendard-Light.woff2) format('woff2');
+        src: local('NotoSansKR Light'), url(./fonts/NotoSansKR-Light.ttf) format('ttf');
     }
     @font-face {
-        font-family: 'Pretendard';
+        font-family: 'NotoSansKR';
         font-weight: 200;
         font-display: swap;
-        src: local('Pretendard ExtraLight'), url(./fonts/Pretendard-ExtraLight.woff2) format('woff2');
+        src: local('NotoSansKR ExtraLight'), url(./fonts/NotoSansKR-ExtraLight.ttf) format('ttf');
     }
     @font-face {
-        font-family: 'Pretendard';
+        font-family: 'NotoSansKR';
         font-weight: 100;
         font-display: swap;
-        src: local('Pretendard Thin'), url(./fonts/Pretendard-Thin.woff2) format('woff2');
+        src: local('NotoSansKR Thin'), url(./fonts/NotoSansKR-Thin.ttf) format('ttf');
     }
-    
-    /* http://meyerweb.com/eric/tools/css/reset/
-       v2.0 | 20110126
-       License: none (public domain)
-    */
 
     html, body, div, span, applet, object, iframe,
     h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -84,7 +77,6 @@ const GlobalStyle = createGlobalStyle`
         vertical-align: baseline;
     }
 
-    /* HTML5 display-role reset for older browsers */
     article, aside, details, figcaption, figure,
     footer, header, hgroup, menu, nav, section {
         display: block;
@@ -92,11 +84,10 @@ const GlobalStyle = createGlobalStyle`
 
     body {
         line-height: 1;
-        font-family: 'Pretendard', sans-serif;
+        font-family: 'NotoSansKR', sans-serif;
         ::-webkit-scrollbar {
-            display: none; /* Chrome, Safari, Opera*/
+            display: none;
         }
-
     }
 
     ol, ul {
@@ -136,8 +127,11 @@ const GlobalStyle = createGlobalStyle`
 
     :root{
         // Colors
-        /* --color-main:
-        --color-sub-main: */
+        --color-point1:#4D7EFF;
+        --color-point2:#666271;
+        --color-sub1:#C0C0C0;
+        --color-sub2:#EFEFEF;
+        --color-sub3:#FFFFFF;
 
         // Font weight
         --weight-extra-bold: 800;
@@ -146,7 +140,6 @@ const GlobalStyle = createGlobalStyle`
         --weight-medium: 500;
         --weight-regular: 400;
         --weight-light: 300;
-
     }
 `;
 
