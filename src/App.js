@@ -11,7 +11,7 @@ function App() {
       <Router>
         <div className="App">
           <Routes>
-            <Route path="/register" element={<Main/>} />
+            <Route path="/" element={<Main/>} />
           </Routes>
           {/* <Navbar /> 항상 하단에 고정되는 Navbar */}
         </div>
