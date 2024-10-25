@@ -1,25 +1,38 @@
 // AuctionItem.js
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import { FaHeart, FaRegHeart } from 'react-icons/fa'; // 채워진 하트와 비어있는 하트 아이콘을 추가합니다.
 
 const AuctionItem = ({ auction }) => {
+  const [isLiked, setIsLiked] = useState(false); // 하트의 상태를 관리합니다.
+
+  const toggleLike = () => {
+    setIsLiked(!isLiked); // 클릭할 때마다 하트의 상태를 토글합니다.
+  };
+
   return (
     <AuctionItemContainer>
-      <AuctionItemImage src={auction.img} alt={auction.title} />
+      <AuctionItemImage alt={auction.title} />
+      {/* src={auction.img} */}
       <AuctionItemDetails>
-        <FirstLine>
-          <AuctionItemCategory>{auction.category}</AuctionItemCategory>
-          <ActionItemSlash src="/assets/slash.svg" alt="slash" />
-        </FirstLine>
-        <AuctionItemTitle>{auction.title}</AuctionItemTitle>
-        <AuctionItemDesc>{auction.desc}</AuctionItemDesc>
-        <RefreshIconContainer>
-          <RefreshIcon src="/assets/refresh.svg" alt="refresh" />
-        </RefreshIconContainer>
+        <AuctionItemHeader>
+          <AuctionItemTitle>
+            {auction.title}
+            <AuctionItemDesc>{auction.desc}</AuctionItemDesc>
+          </AuctionItemTitle>
+          <AuctionItemHeart onClick={toggleLike}>
+            {isLiked ? <FaHeart color="#4D7EFF" /> : <FaRegHeart color="#4D7EFF" />}
+            <HeartCount>{auction.likeCount}</HeartCount>
+          </AuctionItemHeart>
+        </AuctionItemHeader>
         <AuctionItemInfoContainer>
-          <AuctionItemPeopleIcon src="/assets/people.svg" alt="people" />
-          <AuctionItemPrice>{auction.price}원</AuctionItemPrice>
+          <PeopleInfo>
+            <AuctionItemPeopleIcon src="/assets/people_1.svg" alt="people" />
+            <PeopleCount>2/3</PeopleCount>
+          </PeopleInfo>
+          <AuctionItemPrice>\{auction.price}</AuctionItemPrice>
         </AuctionItemInfoContainer>
+        <AuctionStatus status={auction.status}>{auction.status}</AuctionStatus>
       </AuctionItemDetails>
     </AuctionItemContainer>
   );
@@ -30,108 +43,118 @@ export default AuctionItem;
 const AuctionItemContainer = styled.div`
   display: flex;
   background-color: #ffffff;
-  max-width:335px;
-  min-height:129px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 315px;
+  height: 109px;
+  padding: 10px;
+  margin: 0 20px 15px 0px;
+  box-shadow: 0 4px 8px rgba(0.2, 0.2, 0.2, 0.2);
   border-radius: 8px;
-  margin-bottom: 20px;
 `;
 
 const AuctionItemImage = styled.img`
-  width: 100px;
-  height: 100px;
+  width: 110px !important;
+  height: 110px;
+  border-radius: 8px;
   object-fit: cover;
-  margin-right: 20px;
+  margin-right: 10px;
+  background-color: gray;
 `;
 
 const AuctionItemDetails = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%; /* 부모 요소의 너비를 100%로 설정 */
+  width: 205px;
+  justify-content: space-between;
+  position: relative;
 `;
 
-const AuctionItemDesc = styled.p`
-  font-size: 10px;
-  font-family: 'Pretendard', sans-serif;
-  font-weight: 300;
-  color: #8B95A1;
-`;
-
-const AuctionItemCategory = styled.div`
-  width: 31px;
-  height: 16px;
-  background-color: #1feb5913;
-  color: #2bde5d;
-  font-size: 10px;
-  font-family: 'Pretendard', sans-serif;
-  font-weight: bold;
+const AuctionItemHeader = styled.div`
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  border-radius: 4px;
-  margin-bottom: 14px;
 `;
 
 const AuctionItemTitle = styled.h3`
-  font-size: 12px;
-  font-family: 'Pretendard', sans-serif;
+  font-size: 14px;
+  font-family: 'NotoSansKR', sans-serif;
   font-weight: bold;
-  margin-bottom: 6px;
+  margin: 0;
+  text-align: left;
+`;
+
+const AuctionItemHeart = styled.div`
+  display: flex;
+  flex-direction: column; /* 세로로 정렬하여 하트와 카운트를 아래로 배치 */
+  align-items: center;
+  gap: 2px;
+  size:20px;
+  cursor: pointer; /* 클릭할 수 있도록 손 모양 커서 추가 */
+`;
+
+const HeartCount = styled.span`
+  font-size: 12px;
+  color: var(--color-point1); /* 색상 변경 */
+`;
+
+const AuctionItemDesc = styled.p`
+  font-size: 12px;
+  font-family: 'NotoSansKR', sans-serif;
+  font-weight: 300;
+  color: #8B95A1;
+  margin: 0;
+  text-align: left;
+  margin-top: 6px;
 `;
 
 const AuctionItemInfoContainer = styled.div`
   display: flex;
   align-items: center;
-  width: 100%;
+  justify-content: space-between;
+  position: relative;
+`;
+
+const PeopleInfo = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0; /* 아이콘과 텍스트 사이의 간격 제거 */
 `;
 
 const AuctionItemPeopleIcon = styled.img`
-  width: 11px;
-  height: 11px;
-  margin-right: 3px;
+  width: 20px;
+  height: 20px;
 `;
 
-const AuctionItemInfo = styled.p`
-  font-size: 10px;
-  font-family: 'Pretendard', sans-serif;
-  font-weight: 500;
+const PeopleCount = styled.p`
+  font-size: 12px;
+  font-family: 'NotoSansKR', sans-serif;
+  color: #4D7EFF;
+  margin: 0;
+  margin-left: 5px;
+`;
+
+const AuctionStatus = styled.span`
+  background-color: ${(props) => (props.status === '완료' ? 'var(--color-point2)' : '#4D7EFF')};
+  color: white;
+  width: 55px;
+  height: 20px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 5px;
+  font-size: 12px;
+  font-family: 'NotoSansKR', sans-serif;
+  position: absolute;
+  right: 0;
+  bottom: 30px;
 `;
 
 const AuctionItemPrice = styled.p`
   font-size: 15px;
-  font-family: 'Pretendard', sans-serif;
+  font-family: 'NotoSansKR', sans-serif;
   font-weight: bold;
-  margin-left: auto;
-`;
-
-const RefreshIconContainer = styled.div`
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  border: 1px solid #d3d3d3;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-left: auto;
-  margin-bottom: 7px;
-  margin-right: 4px;
-`;
-
-const RefreshIcon = styled.img`
-  width: 14px;
-  height: 14px;
-  object-fit: contain;
-`;
-
-const FirstLine = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-const ActionItemSlash = styled.img`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 6px;
-  height: 10px;
+  color: #000;
+  margin-left: 10px;
+  margin-bottom: 0;
+  position: relative;
 `;
