@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import * as StompJs from "@stomp/stompjs";
 import { useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
-
-// ... styled-components 정의 생략 (chat UI 유지)
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 const Chatting = () => {
+    const location = useLocation();
+    const currentUserArray = location.state?.currentUserArray;
+    const currentUser = currentUserArray[0];
     const param = useParams(); // 채팅방 식별자
     const chatroomId = param.chatroomId;
     const token = JSON.stringify(window.localStorage.getItem("token")); // 로그인된 사용자의 토큰
@@ -19,18 +20,21 @@ const Chatting = () => {
     const userId = useSelector((state) => state.user.userCode); // 현재 로그인한 사용자 ID
     const navigate = useNavigate();
 
+    useEffect(()=>{
+      connect();
+    },[])
     // WebSocket 연결
     const connect = () => {
         const client = new StompJs.Client({
             brokerURL: "ws://localhost:3000/chat",
-            connectHeaders: { login: "", passcode: "password" },
+            connectHeaders: { login: "", passcode: "" },
             reconnectDelay: 5000,
             heartbeatIncoming: 4000,
             heartbeatOutgoing: 4000,
         });
 
         client.onConnect = () => {
-            client.subscribe(`/sub/channels/${chatroomId}`, callback);
+            client.subscribe(`/sub/chat/room/${chatroomId}`, callback);
             setIsConnected(true); // 연결 상태 업데이트
         };
 
@@ -42,9 +46,21 @@ const Chatting = () => {
         setClient(client); // WebSocket 클라이언트 설정
     };
 
-    // WebSocket 연결 해제
+    // WebSocket 연결 해제 - 퇴장 메시지 전송
     const disConnect = () => {
-        if (client) {
+        if (client && isConnected) {
+            // 퇴장 메시지 생성
+            const leaveMessage = {
+                userId: userId,
+                roomId: chatroomId,
+                content: `${currentUser}님이 퇴장하셨습니다.`,
+                username: currentUser,
+                type: "LEAVE"
+            };
+            client.publish({
+                destination: `/pub/chat/room/${chatroomId}/leave`,
+                body: JSON.stringify(leaveMessage),
+            });
             client.deactivate();
             setIsConnected(false); // 연결 해제 시 상태 업데이트
         }
@@ -60,13 +76,15 @@ const Chatting = () => {
 
     // 메시지 전송
     const sendChat = () => {
-        console.log('aa');
         if (!chat || !isConnected || !client) return; // 연결 상태 확인
         client.publish({
-            destination: `/pub/chat/${chatroomId}`,
+            destination: `/pub/chat/room/${chatroomId}/send`,
             body: JSON.stringify({
-                sender: userId,
-                data: chat,
+                userId: userId,
+                roomId: chatroomId,
+                content: chat,
+                username: currentUser,
+                type: "CHAT"
             }),
         });
         setChat(""); // 입력 필드 초기화
@@ -74,8 +92,7 @@ const Chatting = () => {
 
     useEffect(() => {
         connect(); // 컴포넌트 마운트 시 연결
-
-        return () => disConnect(); // 언마운트 시 연결 해제
+        return () => disConnect(); // 언마운트 시 연결 해제 시 퇴장 메시지 전송
     }, []);
 
     // 메시지 입력 핸들러
@@ -89,24 +106,21 @@ const Chatting = () => {
 
     return (
         <ChattingAppContainer>
-            {/* UI 구성은 chat의 코드 유지 */}
             <RecentAuctionsHeader>
                 <img src='/assets/back_1.svg' onClick={() => navigate(-1)} alt="Back" />
                 <HeaderTitle>채팅</HeaderTitle>
                 <img src='/assets/exit.svg' onClick={() => navigate('/chatlist')} alt="Exit" />
             </RecentAuctionsHeader>
-            <ChattingTopic>
-                {/* 토픽 정보 UI */}
-            </ChattingTopic>
+            <ChattingTopic>{/* 토픽 정보 UI */}</ChattingTopic>
             <ChattingContainer>
                 <div className="chatDate">2024년 10월 22일 목요일</div>
                 {chatList.map((msg, idx) => (
-                    msg.sender !== userId ? (
+                    msg.userId !== userId ? (
                         <ChatMessageContainer key={idx}>
-                            <SenderName>익명{msg.sender}</SenderName>
+                            <SenderName>{msg.username}:</SenderName>
                             <ChatMessageWrapper>
                                 <ChatBubble>
-                                    <Message>{msg.data}</Message>
+                                    <Message>{msg.content}</Message>
                                 </ChatBubble>
                                 <MessageTime>{msg.time}</MessageTime>
                             </ChatMessageWrapper>
@@ -116,7 +130,7 @@ const Chatting = () => {
                             <MyChatMessageWrapper>
                                 <MyMessageTime>{msg.time}</MyMessageTime>
                                 <MyChatBubble>
-                                    <Message>{msg.data}</Message>
+                                    <Message>{msg.content}</Message>
                                 </MyChatBubble>
                             </MyChatMessageWrapper>
                         </MyChatBubbleContainer>
@@ -137,6 +151,7 @@ const Chatting = () => {
 };
 
 export default Chatting;
+
 
 
 const ChattingAppContainer = styled.div`

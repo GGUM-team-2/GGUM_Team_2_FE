@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { signup } from '../api/signup';
-import { authCode } from '../api/authCode';
-import { emailshoot } from '../api/emailshoot';
-import { mailCheck } from '../api/mailCheck';
+import { signup } from '../api/signup/signup';
+import { authCode } from '../api/signup/authCode';
+import { emailshoot } from '../api/signup/emailshoot';
+import { mailCheck } from '../api/signup/mailCheck';
 
 
 const SignupPage = () => {
