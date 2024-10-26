@@ -12,30 +12,44 @@ const Chatting = () => {
             <ChattingTopic>
                 <ImagePlaceholder />
                 <TopicInfo>
-                    <TopicTitle>넷플릭스 4인팟 구해요</TopicTitle>
-                    <Price>₩5,000</Price>
+                    <p className='topicTitle'>넷플릭스 4인팟 구해요</p>
+                    <p className='price'>₩5,000</p>
                 </TopicInfo>
-                <StatusBadge>진행중</StatusBadge>
-                <PeopleCount>
-                    <PeopleIcon src="/assets/people_1.svg" alt="people" />
-                    <PeopleText>2/3</PeopleText>
-                </PeopleCount>
+                <StatusWrapper>
+                    <span className='statusBadge'>진행중</span>
+                    <div className='peopleCount'>
+                        <PeopleIcon src="/assets/people_1.svg" alt="people" />
+                        <PeopleText>2/3</PeopleText>
+                    </div>
+                </StatusWrapper>
             </ChattingTopic>
             <ChattingContainer>
-                <ChatDate>2024년 10월 22일 목요일</ChatDate>
-                <ChatBubble>
+
+                <div className='chatDate'>2024년 10월 22일 목요일</div>
+
+                {/* 채팅 */}
+                <ChatMessageContainer>
                     <SenderName>익명1</SenderName>
-                    <Message>안녕하세요</Message>
-                    <MessageTime>오전 1:49</MessageTime>
-                </ChatBubble>
-                <MyChatBubble>
-                    <Message>안녕하세요</Message>
-                    <MessageTime>오전 1:49</MessageTime>
-                </MyChatBubble>
+                    <ChatMessageWrapper>
+                        <ChatBubble>
+                            <Message>안녕하세요</Message>
+                        </ChatBubble>
+                        <MessageTime>오전 1:49</MessageTime>
+                    </ChatMessageWrapper>
+                </ChatMessageContainer>
+
+                <MyChatBubbleContainer>
+                    <MyChatMessageWrapper>
+                        <MyMessageTime>오전 1:49</MyMessageTime>
+                        <MyChatBubble>
+                            <Message>안녕하세요</Message>
+                        </MyChatBubble>
+                    </MyChatMessageWrapper>
+                </MyChatBubbleContainer>
             </ChattingContainer>
             <ChatInputContainer>
                 <ChatInput placeholder="메시지 보내기" />
-                <SendButton src="/assets/send_icon.svg" alt="send" />
+                <SendButton src="/assets/send.svg" alt="send" />
             </ChatInputContainer>
         </ChattingAppContainer>
     );
@@ -44,12 +58,15 @@ const Chatting = () => {
 export default Chatting;
 
 const ChattingAppContainer = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   width: 375px;
   height: 812px;
   overflow: hidden;
+  z-index: 10;
+  font-family:"NotoSansKR";
 `;
 
 const RecentAuctionsHeader = styled.div`
@@ -78,10 +95,11 @@ const ChattingTopic = styled.div`
   align-items: center;
   width: 100%;
   padding: 10px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  margin: 10px 0;
+  background-color: #ffffff;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
   box-sizing: border-box;
+  z-index:10;
 `;
 
 const ImagePlaceholder = styled.div`
@@ -96,33 +114,45 @@ const TopicInfo = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
+  text-align:left;
+  .topicTitle{
+
+    font-weight: bold;
+    margin: 0;
+    margin-bottom:6px;
+  }
+  .price{
+    font-size:18px;
+    font-weight: bold;
+    margin: 0;
+  }
 `;
 
-const TopicTitle = styled.p`
-  font-weight: bold;
-  margin: 0;
-`;
-
-const Price = styled.p`
-  font-weight: bold;
-  color: #555;
-  margin: 0;
-`;
-
-const StatusBadge = styled.span`
-  font-size: 12px;
-  padding: 5px 10px;
-  border-radius: 20px;
-  background-color: #4D7EFF;
-  color: #fff;
-  margin-left: auto;
-`;
-
-const PeopleCount = styled.div`
-  display: flex;
-  align-items: center;
-  margin-left: 10px;
-`;
+const StatusWrapper = styled.div`
+    margin-right:20px;
+    width:50px;
+    height:50px;
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    .statusBadge{
+        width:45px;
+        height:20px;
+        font-size: 12px;
+        text-align:center;
+        justify-content:center;
+        padding: 5px 10px;
+        border-radius: 20px;
+        background-color: #4D7EFF;
+        color: #fff;
+        margin-left: auto;
+    }
+    .peopleCount{
+        display: flex;
+        align-items: center;
+        margin-left: 10px;
+    }
+`
 
 const PeopleIcon = styled.img`
   width: 20px;
@@ -131,41 +161,55 @@ const PeopleIcon = styled.img`
 `;
 
 const PeopleText = styled.span`
-  font-size: 12px;
+  font-size: 14px;
   color: #4D7EFF;
 `;
 
 // ChattingContainer 스타일링
 const ChattingContainer = styled.div`
+  position:relative;
   display: flex;
   flex-direction: column;
   width: 100%;
   padding: 20px;
   box-sizing: border-box;
+  background-color: #ffffff;
   overflow-y: auto;
   flex: 1;
+  .chatDate{
+    font-size: 12px;
+    color: #888;
+    text-align: center;
+    margin: 10px 0;
+  }
 `;
 
-const ChatDate = styled.div`
-  font-size: 12px;
-  color: #888;
-  text-align: center;
-  margin: 10px 0;
+const ChatMessageContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 5px;
+`;
+
+const ChatMessageWrapper = styled.div`
+  display: flex;
+  align-items: flex-end;
+  gap: 5px;
 `;
 
 const ChatBubble = styled.div`
   background-color: #f1f1f1;
   padding: 10px;
   border-radius: 8px;
-  margin-bottom: 5px;
-  max-width: 70%;
-  display: flex;
-  flex-direction: column;
+  display: inline-block;
+  position: relative;
 `;
 
 const SenderName = styled.span`
+  font-size: 14px;
   font-weight: bold;
-  margin-bottom: 5px;
+  text-align: left;
+  margin-bottom: 2px;
 `;
 
 const Message = styled.p`
@@ -175,24 +219,39 @@ const Message = styled.p`
 const MessageTime = styled.span`
   font-size: 10px;
   color: #888;
-  text-align: right;
+`;
+
+const MyChatBubbleContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-bottom: 5px;
+`;
+
+const MyChatMessageWrapper = styled.div`
+  display: flex;
+  align-items: flex-end;
+  gap: 5px;
 `;
 
 const MyChatBubble = styled(ChatBubble)`
   background-color: #4D7EFF;
   color: white;
-  align-self: flex-end;
 `;
 
+const MyMessageTime = styled(MessageTime)`
+  color: #888;
+`;
+  
 const ChatInputContainer = styled.div`
   display: flex;
   align-items: center;
-  padding: 10px;
-  border-top: 1px solid #eee;
-  background-color: #f9f9f9;
+  padding: 20px 20px 30px 20px;
+  background-color: #ffffff;
   width: 100%;
   box-sizing: border-box;
   position: fixed;
+  height: 76px;
   bottom: 0;
 `;
 
@@ -201,7 +260,10 @@ const ChatInput = styled.input`
   padding: 10px;
   border: none;
   border-radius: 5px;
-  background-color: #f1f1f1;
+  background-color: #EDF2FF;
+  &::placeholder {
+    color: var(--color-point1);
+  }
 `;
 
 const SendButton = styled.img`
