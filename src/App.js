@@ -5,6 +5,7 @@ import GlobalStyle from './css/GlobalStyle';
 import Main from './pages/Main';
 import LandingPage from './pages/LandingPage';
 import SignupPage from './pages/SignupPage';
+import Navbar from './components/Navbar';
 
 function App() {
   return (
@@ -16,8 +17,9 @@ function App() {
             <Route path="/" element={<LandingPage/>} />
             <Route path="/SignupPage" element={<SignupPage/>} />
             <Route path="/register" element={<Main/>} />
+            <Route path="/" element={<Main/>} />
           </Routes>
-          {/* <Navbar /> 항상 하단에 고정되는 Navbar */}
+          <Navbar/>
         </div>
       </Router>
     </>
