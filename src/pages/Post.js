@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import '../css/pages/Post.css'; 
+import styled from 'styled-components';
 
 function Post() {
     const [count, setCount] = useState(1);
@@ -15,11 +16,13 @@ function Post() {
     };
 
     return (
+        <>
+            <RecentAuctionsHeader>
+                <BackButton src='/assets/back_1.svg' />
+                <HeaderTitle>공동구매</HeaderTitle>
+            </RecentAuctionsHeader>
+
         <div className="container">
-            <header>
-                <button className="back-button">←</button>
-                <h1>공동구매</h1>
-            </header>
 
             <form className="purchase-form">
                 <div className="image-upload">
@@ -52,7 +55,38 @@ function Post() {
                 <button type="submit" className="submit-button">작성하기</button>
             </form>
         </div>
+        </>
     );
 }
 
 export default Post;
+
+const RecentAuctionsHeader = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center; /* HeaderTitle을 중앙에 배치 */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 375px;
+  height: 80px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #EFEFEF;
+  margin-bottom: 15px;
+  background-color: white;
+`;
+
+const HeaderTitle = styled.h2`
+  font-size: 18px;
+  font-weight: var(--weight-bold);
+  font-family: 'NotoSansKR', sans-serif;
+  line-height: 1.4;
+  margin: 0;
+`;
+
+const BackButton = styled.img`
+  position: absolute;
+  left: 20px; /* 왼쪽에 고정 */
+  width: 30px; /* size={30}와 같은 크기 */
+  color: #4D7EFF;
+`;

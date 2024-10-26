@@ -8,6 +8,7 @@ import SignupPage from './pages/SignupPage';
 import Navbar from './components/Navbar';
 import Post from './pages/Post';
 import ItemDetail from './pages/ItemDetail';
+import Chatting from './pages/Chatting';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             <Route path="/detail" element={<ItemDetail />} /> {/* 새로운 라우트 추가 */}
             <Route path="/post" element={<Post/>} />
             <Route path="/main" element={<Main/>} />
+            <Route path="/chat" element={<Chatting/>} />
           </Routes>
           <Navbar/>
         </div>
