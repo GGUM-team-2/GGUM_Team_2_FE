@@ -3,8 +3,11 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css'
 import GlobalStyle from './css/GlobalStyle';
 import Main from './pages/Main';
-import ItemDetail from './ItemDetail'; // 공동구매 상세정보
-import Post from './Post';
+import LandingPage from './pages/LandingPage';
+import SignupPage from './pages/SignupPage';
+import Navbar from './components/Navbar';
+import Post from './pages/Post';
+import ItemDetail from './pages/ItemDetail';
 
 function App() {
   return (
@@ -13,13 +16,13 @@ function App() {
       <Router>
         <div className="App">
           <Routes>
-            <Route path="/register" element={<Main />} />
+            <Route path="/" element={<LandingPage/>} />
+            <Route path="/signup" element={<SignupPage/>} />
             <Route path="/detail" element={<ItemDetail />} /> {/* 새로운 라우트 추가 */}
-            <Route path="/post" element={<Post />} />
-            <Route path="/" element={<ItemDetail />} /> 상세정보 = 메인
-           {/*<Route path="/" element={<Post/>} /> */}
+            <Route path="/post" element={<Post/>} />
+            <Route path="/main" element={<Main/>} />
           </Routes>
-          {/* <Navbar /> 항상 하단에 고정되는 Navbar */}
+          <Navbar/>
         </div>
       </Router>
     </>
