@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { signup } from '../api/signup';
 import { authCode } from '../api/authCode';
 import { emailshoot } from '../api/emailshoot';
+import { mailCheck } from '../api/mailCheck';
 
 const SignupPage = () => {
     const [email, setEmail] = useState('');
@@ -25,6 +26,10 @@ const SignupPage = () => {
     //인증번호확인
     const verifyCode=()=>{
         emailshoot(email);
+    }
+
+    const codeCheck=()=>{
+        mailCheck(email,aCode);
     }
 
     const validateEmail = () => {
@@ -77,7 +82,7 @@ const SignupPage = () => {
                 <Label>인증번호</Label>
                 <VerificationWrapper>
                     <VerificationInput type="text" onChange={(e) => setACode(e.target.value)} />
-                    <VerifyButton>확인</VerifyButton>
+                    <VerifyButton onClick={codeCheck}>확인</VerifyButton>
                 </VerificationWrapper>
                 <ResendText>인증번호 다시 받기</ResendText>
 
