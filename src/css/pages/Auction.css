@@ -1,0 +1,169 @@
+/*Auction.css*/
+
+.auction-container{
+  width: 100vw;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+.main_desc {
+  margin-top: 42px;
+  text-align: left;         /* 왼쪽 정렬 */
+  font-family: 'Pretendard', sans-serif;  /* Pretendard 폰트 적용 */
+  font-size: 25px;          /* 폰트 크기 25px */
+  font-weight: 600;         /* semibold (600) 적용 */
+  line-height: 1.5;         /* 줄 간격 설정, 필요시 조정 */
+}
+.auction-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+.left-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+}
+.step p {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.step-circle {
+  width: 24px;
+  height: 24px;
+  background-color: #1feb58;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Pretendard', sans-serif;
+  font-size: 15px;
+  margin-right: 10px;
+  
+}
+
+.right-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+.auction-icon {
+  width: 77px; /* 원하는 크기로 설정 */
+  height: 101px;
+
+}
+.auction-category {
+  margin-top: 40px;
+}
+
+.category-title {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: bold;
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* 한 줄에 5개의 아이템 */
+  gap: 2px; /* 아이템들 사이의 간격 */
+  row-gap: 20px;
+}
+
+
+.category-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.category-circle {
+  width: 62px;
+  height: 62px;
+  border: 1px solid #d3d3d3;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.category-circle img {
+  width: 35px; /* Adjust image size inside the circle */
+  height: 35px;
+}
+
+.category-label {
+  margin-top: 5px;
+  font-family: 'Pretendard', sans-serif;
+  font-size: 15px;
+}
+.recent-auctions {
+  margin-top: 40px;
+}
+
+.recent-auctions-title {
+  font-size: 17px;
+  font-weight: bold;
+  font-family: 'Pretendard', sans-serif;
+  margin-bottom: 9px;
+}
+.auction-item{
+  display: flex;
+}
+.upcoming-auction-list {
+  display: flex; /* Flexbox를 사용하여 가로로 배치 */
+  flex-direction: row; /* 가로 방향으로 아이템 정렬 */
+  gap: 10px; /* 카드들 사이에 10px 간격 */
+  overflow-x: auto; /* 가로 스크롤 허용 */
+  padding-bottom: 10px; /* 아래쪽에 패딩 추가 */
+  white-space: nowrap; /* 줄 바꿈 방지 */
+}
+.upcoming-auction-item {
+  background-color: #ffffff;
+  padding: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  width: 236px; /* 카드의 고정된 너비 */
+  flex-shrink: 0; /* 크기가 줄어들지 않도록 설정 */
+}
+.upcoming-auctions-message {
+  font-size: 12px;
+  font-family: Pretendard, sans-serif;
+  color: #8b95a1;
+  margin-top: 5px;
+}
+.recent-auctions-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.view-all-text {
+  font-size: 14px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;  /* Pretendard Regular */
+  color: #21344A; /* 원하시는 색상으로 조정 */
+  cursor: pointer;
+  line-height: 1.5; /* 전체보기 텍스트의 줄 간격 조정 */
+}
+.recent-auctions-titles {
+  font-size: 17px;
+  font-weight: bold;
+  font-family: 'Pretendard', sans-serif;
+  margin-bottom: 0; /* 아래 여백을 제거해서 높이 조정 */
+  line-height: 1.5; /* 제목의 줄 간격을 높이에 맞게 조정 */
+  margin-bottom: 0; /* 아래 여백을 제거해서 높이 조정 */
+  line-height: 1.5; /* 제목의 줄 간격을 높이에 맞게 조정 */
+
+}
