@@ -6,6 +6,8 @@ import Main from './pages/Main';
 import LandingPage from './pages/LandingPage';
 import SignupPage from './pages/SignupPage';
 import Navbar from './components/Navbar';
+import Post from './pages/Post';
+import ItemDetail from './pages/ItemDetail';
 
 function App() {
   return (
@@ -15,9 +17,10 @@ function App() {
         <div className="App">
           <Routes>
             <Route path="/" element={<LandingPage/>} />
-            <Route path="/SignupPage" element={<SignupPage/>} />
-            <Route path="/register" element={<Main/>} />
-            <Route path="/" element={<Main/>} />
+            <Route path="/signup" element={<SignupPage/>} />
+            <Route path="/detail" element={<ItemDetail />} /> {/* 새로운 라우트 추가 */}
+            <Route path="/post" element={<Post/>} />
+            <Route path="/main" element={<Main/>} />
           </Routes>
           <Navbar/>
         </div>
