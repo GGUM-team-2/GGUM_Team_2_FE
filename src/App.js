@@ -10,6 +10,7 @@ import Post from './pages/Post';
 import ItemDetail from './pages/ItemDetail';
 import MyPage from './pages/MyPage';
 import MyPost from './pages/MyPost';
+import Chatting from './pages/Chatting';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             <Route path="/main" element={<Main/>} />
             <Route path="/my" element={<MyPage/>} />
             <Route path="/my-post" element={<MyPost/>} />
+            <Route path="/chat" element={<Chatting/>} />
           </Routes>
           <Navbar/>
         </div>
