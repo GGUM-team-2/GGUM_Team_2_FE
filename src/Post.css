@@ -1,0 +1,128 @@
+body {
+    background-color: #f9f9f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    background-color: white;
+    width: 400px;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+header {
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    position: relative; 
+    width: 100%; 
+    height: 50px;
+}
+
+.back-button {
+    font-size: 24px;
+    position: absolute; /* 절대 위치로 버튼을 왼쪽에 배치 */
+    left: 0; /* 버튼이 헤더의 왼쪽에 고정되도록 */
+    cursor: pointer;
+    display: inline;
+}
+
+h1 {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center; /* 제목을 중앙 정렬 */
+    flex-grow: 1;
+    height: 10px;
+    display: inline;   
+}
+
+.purchase-form {
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.image-upload {
+    display: flex;
+    justify-content: left;
+    margin-bottom: 20px;
+}
+
+.image-placeholder {
+    width: 100px;
+    height: 100px;
+    background-color: #ddd;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-placeholder img {
+    width: 40px;
+    height: 40px;
+}
+
+label {
+    font-size: 14px;
+    color: #4D7EFF;
+    margin-bottom: 10px;
+    text-align: left;
+    font-weight: bold;
+}
+
+input[type="text"], textarea {
+    width: 95%;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+textarea {
+    height: 100px;
+    resize: none;
+}
+
+.people-count {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.people-controls {
+    display: flex;
+    align-items: center;
+}
+
+.minus-btn, .plus-btn {
+    background-color: #eee;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.people-number {
+    margin: 0 10px;
+    font-size: 14px;
+    color: #888;
+}
+
+.submit-button {
+    background-color: #4D7EFF;
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+}
