@@ -11,6 +11,8 @@ import ItemDetail from './pages/ItemDetail';
 import MyPage from './pages/MyPage';
 import MyPost from './pages/MyPost';
 import Chatting from './pages/Chatting';
+import Home from './pages/Home';
+import MyPageReview from './pages/MyPageReview';
 
 function App() {
   return (
@@ -27,6 +29,8 @@ function App() {
             <Route path="/my" element={<MyPage/>} />
             <Route path="/my-post" element={<MyPost/>} />
             <Route path="/chat" element={<Chatting/>} />
+            <Route path="/home" element={<Home/>} />
+            <Route path="/review" element={<MyPageReview/>} />
           </Routes>
           <Navbar/>
         </div>
