@@ -24,7 +24,7 @@ const LandingPage = () => {
             type="email"
             id="email"
             value={email}
-            className='input-email'
+            className='input-email' 
             onChange={(e) => setEmail(e.target.value)}
             required
             placeholder="이메일"
@@ -43,11 +43,11 @@ const LandingPage = () => {
             placeholder="비밀번호"
           />
         </div>
-        <div className="form-group">
+        {/* <div className="form-group">
           <div className="forgot-password">
           <a href="">비밀번호 찾기</a>
           </div>
-        </div>
+        </div> */}
         <div className="form-group">
           <input type="submit" className="login-btn" value={'로그인'}/>
           </div>        
