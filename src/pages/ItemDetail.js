@@ -1,74 +1,121 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../css/pages/ItemDetail.css'; 
 import styled from 'styled-components';
 import { FaHeart, FaRegHeart } from 'react-icons/fa'; 
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { CreateChat } from '../api/chat/CreateChat';
+import { useAuth } from '../context/AuthContext';
+import { BringLike } from '../api/detail/BringLike';
+import { BringDisLike } from '../api/detail/BringDisLike';
+import { BringUserId } from '../api/detail/BringUserId';
 
 const ItemDetail = () => {
-  const [isLiked, setIsLiked] = useState(false); // 하트의 상태를 관리합니다.
-
-  const toggleLike = () => {
-    setIsLiked(!isLiked); // 클릭할 때마다 하트의 상태를 토글합니다.
-  };
-
+  const { authData } = useAuth();
+  const [isLiked, setIsLiked] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+  const [like,setLike]=useState(0);
+  const [dislike,setDislike]=useState(0);
+  const [currentUser,setCurrentUser]=useState(0);
 
-  const goToMain=()=>{
-    navigate('/main');
+  // 전달된 auction 객체를 가져옴
+  const auction = location.state?.auction;
+  useEffect(()=>{
+    getLike();
+  },[])
+  if (!auction) {
+    return <div>데이터를 불러오는 데 오류가 발생했습니다.</div>;
   }
 
+  const toggleLike = () => {
+    setIsLiked(!isLiked);
+  };
 
+  const goToMain = () => {
+    navigate('/main');
+  };
+
+  const newChat = async () => {
+    try {
+      // BringUserId가 비동기 함수이므로 await로 결과를 기다림
+      const currentId = await BringUserId(authData.token);
+      const currentUserArray = [currentId]; // currentId가 원소인 배열 생성
+      console.log("Current User Array:", currentUserArray);
+  
+      if (currentId != null) {
+        console.log(auction.title, auction.userId, currentUserArray,auction.postId);
+        await CreateChat(auction.title, auction.userId, currentUserArray,auction.postId).then(navigate("/chat",{ state: { currentUserArray }}));
+      }
+
+
+    } catch (error) {
+      console.error("Failed to create chat:", error);
+    }
+  };
+  
+  
+
+  const getLike = async () => {
+    try {
+      const response = await BringLike(authData.token);
+      setLike(response.likeCount);
+      setDislike(response.dislikeCount);
+    } catch (error) {
+      console.error("Failed to load like/dislike data:", error);
+    }
+  };
+
+  // const getDisLike=()=>{
+  //   setDislike(BringDisLike(authData.token)[0]);
+  //   console.log(dislike);
+  // }
   return (
     <div className="item-detail-container">
       <header className="detail-header">
-      <img src='/assets/back_1.svg' size={30} color="#4D7EFF" onClick={goToMain} />
-      <AuctionItemHeart onClick={toggleLike}>
-            {isLiked ? <FaHeart color="#4D7EFF" /> : <FaRegHeart color="#4D7EFF" />}
-            <HeartCount>5</HeartCount>
-          </AuctionItemHeart>
+        <img src='/assets/back_1.svg' size={30} color="#4D7EFF" onClick={goToMain} />
+        <AuctionItemHeart onClick={toggleLike}>
+          {isLiked ? <FaHeart color="#4D7EFF" /> : <FaRegHeart color="#4D7EFF" />}
+          <HeartCount>{like}</HeartCount>
+        </AuctionItemHeart>
       </header>
 
       <div className="item-image-placeholder"></div>
 
       <div className="item-info">
         <div className="title-and-date">
-          <p className="item-title">넷플릭스 4인팟 구해요</p>
-          <p className="date-info">10월 21일 • 데이터/OTT</p>
+          <p className="item-title">{auction.title}</p>
+          <p className="date-info">{auction.date} • {auction.postType}</p>
         </div>
         <div className="price-row">
-          <span className="status-badge">진행중</span>
-          <div class="right-aligned-container">
-            <span class="person">1인당</span>
-            <span class="price">₩5,000</span>
-            </div>
+          <span className="status-badge">{auction.postStatus}</span>
+          <div className="right-aligned-container">
+            <span className="person">1인당</span>
+            <span className="price">₩{auction.price}</span>
+          </div>
         </div>
 
         {/* 유저 정보 영역 */}
         <div className="user-info">
           <div className="profile-circle"></div>
           <div className="user-details">
-            <p className="username">익명1</p>
-            <p className="user-meta"><img src='/assets/detail/like.svg'/> <span>10</span>  <img src='/assets/detail/dislike.svg'/> <span>2</span></p>
+            <p className="username">{auction.username}</p>
+            <p className="user-meta">
+              <img src='/assets/detail/like.svg' alt="like" /> <span>{like}</span>
+              <img src='/assets/detail/dislike.svg' alt="dislike" /> <span>{dislike}</span>
+            </p>
           </div>
-          <img className='infoarrow' src='/assets/detail/userinfo_back.svg' alt='바로가기'/>
+          <img className='infoarrow' src='/assets/detail/userinfo_back.svg' alt='바로가기' />
         </div>
 
-        <p className="description">
-          넷플릭스 4인팟 구해요.
-        </p>
-        <p className="description">
-          1인당 5,000원이고 정기 결제일은 10일입니다.
-        </p>
+        <p className="description">{auction.description}</p>
         <ButtonContainer>
-          
           <GroupStatusButton>
             <AuctionItemPeopleIcon src="/assets/people_1.svg" alt="people" />
-            2/3
+            {auction.participantCount}/{auction.participantLimit}
           </GroupStatusButton>
-          <ChatButton>채팅하기</ChatButton>
+          <ChatButton onClick={newChat}>채팅하기</ChatButton>
         </ButtonContainer>
       </div>
-
     </div>
   );
 };
@@ -77,17 +124,17 @@ export default ItemDetail;
 
 const AuctionItemHeart = styled.div`
   display: flex;
-  flex-direction: column; /* 세로로 정렬하여 하트와 카운트를 아래로 배치 */
+  flex-direction: column;
   align-items: center;
   gap: 2px;
   font-size:25px;
-  cursor: pointer; /* 클릭할 수 있도록 손 모양 커서 추가 */
+  cursor: pointer;
   margin-right:20px;
 `;
 
 const HeartCount = styled.span`
   font-size: 12px;
-  color: var(--color-point1); /* 색상 변경 */
+  color: var(--color-point1);
 `;
 
 const ButtonContainer = styled.div`
@@ -112,7 +159,6 @@ const GroupStatusButton = styled.button`
   margin-right:6px;
   gap: 5px;
 `;
-
 
 const ChatButton = styled.button`
   background-color: #4D7EFF;

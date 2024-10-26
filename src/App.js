@@ -11,6 +11,7 @@ import ItemDetail from './pages/ItemDetail';
 import MyPage from './pages/MyPage';
 import MyPost from './pages/MyPost';
 import Chatting from './pages/Chatting';
+import ChatList from './pages/ChatList';
 
 function App() {
   return (
@@ -21,12 +22,13 @@ function App() {
           <Routes>
             <Route path="/" element={<LandingPage/>} />
             <Route path="/signup" element={<SignupPage/>} />
-            <Route path="/detail" element={<ItemDetail />} /> 
+            <Route path="/detail/:postId" element={<ItemDetail />} />
             <Route path="/post" element={<Post/>} />
             <Route path="/main" element={<Main/>} />
             <Route path="/my" element={<MyPage/>} />
             <Route path="/my-post" element={<MyPost/>} />
             <Route path="/chat" element={<Chatting/>} />
+            <Route path="/chatlist" element={<ChatList/>} />
           </Routes>
           <Navbar/>
         </div>
