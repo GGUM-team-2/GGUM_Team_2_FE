@@ -20,7 +20,7 @@ const Navbar = () => {
 
   return (
     <NavbarContainer>
-      <NavItem onClick={() => handleClick('홈', '/')}>
+      <NavItem onClick={() => handleClick('홈', '/main')}>
         {active === '홈' ? <HomeIcon /> : <HomeInactiveIcon />}
       </NavItem>
       <NavItem onClick={() => handleClick('채팅', '/chat')}>

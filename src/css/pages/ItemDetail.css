@@ -1,0 +1,173 @@
+/* 전체 화면 레이아웃 */
+.item-detail-container {
+    position: relative;
+    background-color: #f2f3fc;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 7!important;
+    font-family: 'NotoSansKR';
+}
+  
+/* 상단 헤더 */
+.detail-header {
+    position: fixed;
+    top:0;
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between!important;
+    align-items: center;
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 500px; /* 중앙 정렬 */
+    img{
+        margin-left: 20px;
+    }
+}
+  
+.back-button {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #4D7EFF;
+}
+  
+.like-button {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #4D7EFF;
+}
+
+/* 이미지 플레이스홀더 */
+.item-image-placeholder {
+    width: 100%;
+    max-width: 500px;
+    min-height: 400px;
+    background-color: #ddd;
+}
+
+/* 상품 정보 */
+.item-info {
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 335px;
+    height: 372px;
+    max-width: 500px;
+    z-index: 3;
+}
+
+.item-title {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: left
+}
+
+.date-info {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    text-align: left
+}
+
+/* 가격과 상태 표시 줄 */
+.price-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.status-badge {
+    font-size: 12px;
+    padding: 5px 10px;
+    border-radius: 20px;
+    background-color: #4D7EFF;
+    color: #fff;
+}
+
+.person {
+    font-size: 12px;
+    color: #888;
+    align-items: right;
+    display: inline;
+    margin-right: 5px;
+}
+
+.price {
+    font-size: 24px;
+    font-weight: bold;
+    display: inline; 
+}
+
+/* 유저 정보 */
+.user-info {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    margin-bottom: 20px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    .infoarrow{
+        position: absolute;
+        right: 8px;
+    }
+}
+
+.profile-circle {
+    width: 50px;
+    height: 50px;
+    background-color: #ddd;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.user-details .username {
+    font-weight: bold;
+    text-align: left
+}
+
+.user-meta {
+    position: relative;
+    font-size: 14px;
+    color: #4D7EFF;
+    margin-top: 10px;
+    text-align: left;
+    span{
+        margin-bottom: 10px!important;
+    }
+}
+
+/* 설명 부분 */
+.description {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.5;
+    text-align: left;
+}
+
+.group-status {
+    font-size: 20px;
+    display: inline;
+    color: #4D7EFF;
+    margin-right: 150px;
+    margin-top: 120px;
+}
+
+.chat-button {
+    background-color: #4D7EFF;
+    color: white;
+    border: none;
+    padding: 10px 100px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: auto;
+    display: inline;
+}

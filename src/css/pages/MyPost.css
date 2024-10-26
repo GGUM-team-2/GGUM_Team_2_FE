@@ -1,0 +1,107 @@
+body {
+    font-family: sans-serif;
+    background-color: #f9f9f9;
+    
+}
+
+.container {
+    width: 335px;
+    height: 812px;
+    background-color: white;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #EFEFEF;
+}
+
+.back-button {
+    font-size: 20px;
+    color: #4D7EFF;
+    margin-right: auto; 
+}
+
+.menu-button {
+    font-size: 20px;
+    color: #4D7EFF;
+    margin-left: auto; 
+}
+
+h1 {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.user-info-1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* 수직 정렬을 위한 중앙 정렬 */
+    padding: 20px 0;
+    width: 100%;
+    max-width: 375px;
+    background-color: white;
+    margin-top: 5px; 
+}
+
+.profile-circle {
+    width: 60px;
+    height: 60px;
+    background-color: #4D7EFF;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px; 
+}
+
+.user-details {
+    text-align: center;
+    margin-top: 5px;
+    justify-content: center;
+    display: flex;
+    flex-direction: column; /* 수직 정렬 */
+    align-items: center; /* 수평 중앙 정렬 */
+}
+
+.username {
+    width: 60px;
+    text-align: center;
+    font-size: 18px;
+    margin: 0 auto;
+}
+
+.user-meta {
+    display: flex;
+    color: #4D7EFF;
+    width: 90px;
+    margin-top: 5px;
+    text-align: center;
+}
+
+.tab-menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #c0c0c0;
+    background-color: white;
+}
+
+.tab-item {
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+    color: #c0c0c0; 
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.tab-item.active {
+    color: #000000;
+    font-weight: bold;
+    border-bottom: 2px solid #4D7EFF;
+}
+
