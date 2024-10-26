@@ -1,0 +1,94 @@
+body {
+    font-family: sans-serif;
+    background-color: #f9f9f9;
+    
+}
+
+.container {
+    width: 375px;
+    height: 812px;
+    margin: 0 auto;
+    background-color: white;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #f9f9f9;
+}
+
+.back-button {
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #4D7EFF;
+    cursor: pointer;
+    margin-right: auto; /* 왼쪽에 위치 */
+}
+
+h1 {
+    font-size: 16px; /* 텍스트 크기 조정 */
+    font-weight: bold;
+    margin: 0;
+}
+
+
+.user-info-1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.profile-circle {
+    width: 60px;
+    height: 60px;
+    background-color: #4D7EFF;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 32px;
+}
+
+.user-details {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.username {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.user-meta {
+    color: #4D7EFF;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.tab-menu {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+
+.tab {
+    background: none;
+    border: none;
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    color: #4D7EFF;
+    border-radius: 20px;
+}
+
+.tab.active {
+    background-color: #e0e7ff;
+    color: #4D7EFF;
+}

@@ -98,7 +98,6 @@
     display: inline; 
 }
 
-
 /* 유저 정보 */
 .user-info {
     display: flex;
@@ -138,7 +137,6 @@
     line-height: 1.5;
     text-align: left;
 }
-
 
 .group-status {
     font-size: 20px;
