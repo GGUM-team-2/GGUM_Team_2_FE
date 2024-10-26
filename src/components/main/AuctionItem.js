@@ -1,7 +1,8 @@
 // AuctionItem.js
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { FaHeart, FaRegHeart } from 'react-icons/fa'; // 채워진 하트와 비어있는 하트 아이콘을 추가합니다.
+import { FaHeart, FaRegHeart } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
 const AuctionItem = ({ auction }) => {
   const [isLiked, setIsLiked] = useState(false); // 하트의 상태를 관리합니다.
@@ -10,8 +11,13 @@ const AuctionItem = ({ auction }) => {
     setIsLiked(!isLiked); // 클릭할 때마다 하트의 상태를 토글합니다.
   };
 
+  const navigate = useNavigate();
+
+  const goToDetail=()=>{
+    navigate('/detail');
+  }
   return (
-    <AuctionItemContainer>
+    <AuctionItemContainer onClick={goToDetail}> 
       <AuctionItemImage alt={auction.title} />
       {/* src={auction.img} */}
       <AuctionItemDetails>
