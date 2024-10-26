@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-//import './landingpage.css';
+import './LandingPage.css';
 
 const LandingPage = () => {
   const [email, setEmail] = useState('');
@@ -24,6 +24,7 @@ const LandingPage = () => {
             type="email"
             id="email"
             value={email}
+            className='input-email' 
             onChange={(e) => setEmail(e.target.value)}
             required
             placeholder="이메일"
@@ -36,23 +37,24 @@ const LandingPage = () => {
             type="password"
             id="password"
             value={password}
+            className='input-password'
             onChange={(e) => setPassword(e.target.value)}
             required
             placeholder="비밀번호"
           />
         </div>
-        <div className="form-group">
+        {/* <div className="form-group">
           <div className="forgot-password">
           <a href="">비밀번호 찾기</a>
           </div>
-        </div>
+        </div> */}
         <div className="form-group">
           <input type="submit" className="login-btn" value={'로그인'}/>
           </div>        
       </form>
 
       <div className="signup-link">
-        <p>아직 회원이 아니신가요? <a href="/SignupPage">회원가입</a></p>
+        <p>아직 회원이 아니신가요? <a href="/SignupPage" className='signup-color'>회원가입</a></p>
       </div>
     </div>
   );

@@ -5,6 +5,7 @@ import { authCode } from '../api/authCode';
 import { emailshoot } from '../api/emailshoot';
 import { mailCheck } from '../api/mailCheck';
 
+
 const SignupPage = () => {
     const [email, setEmail] = useState('');
     const [aCode, setACode] = useState('');
