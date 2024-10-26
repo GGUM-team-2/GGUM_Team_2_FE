@@ -1,61 +1,143 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import * as StompJs from "@stomp/stompjs";
+import { useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+
+// ... styled-components 정의 생략 (chat UI 유지)
 
 const Chatting = () => {
+    const param = useParams(); // 채팅방 식별자
+    const chatroomId = param.chatroomId;
+    const token = JSON.stringify(window.localStorage.getItem("token")); // 로그인된 사용자의 토큰
+
+    const [client, setClient] = useState(null); // WebSocket 클라이언트
+    const [isConnected, setIsConnected] = useState(false); // 연결 상태 확인 변수
+    const [chat, setChat] = useState(""); // 사용자가 입력한 채팅 메시지
+    const [chatList, setChatList] = useState([]); // 수신된 채팅 메시지 리스트
+
+    const userId = useSelector((state) => state.user.userCode); // 현재 로그인한 사용자 ID
+    const navigate = useNavigate();
+
+    // WebSocket 연결
+    const connect = () => {
+        const client = new StompJs.Client({
+            brokerURL: "ws://localhost:3000/chat",
+            connectHeaders: { login: "", passcode: "password" },
+            reconnectDelay: 5000,
+            heartbeatIncoming: 4000,
+            heartbeatOutgoing: 4000,
+        });
+
+        client.onConnect = () => {
+            client.subscribe(`/sub/channels/${chatroomId}`, callback);
+            setIsConnected(true); // 연결 상태 업데이트
+        };
+
+        client.onStompError = () => {
+            setIsConnected(false); // 연결 실패 시 상태 업데이트
+        };
+
+        client.activate();
+        setClient(client); // WebSocket 클라이언트 설정
+    };
+
+    // WebSocket 연결 해제
+    const disConnect = () => {
+        if (client) {
+            client.deactivate();
+            setIsConnected(false); // 연결 해제 시 상태 업데이트
+        }
+    };
+
+    // 메시지 수신 콜백
+    const callback = (message) => {
+        if (message.body) {
+            const msg = JSON.parse(message.body);
+            setChatList((chats) => [...chats, msg]); // 메시지 추가
+        }
+    };
+
+    // 메시지 전송
+    const sendChat = () => {
+        console.log('aa');
+        if (!chat || !isConnected || !client) return; // 연결 상태 확인
+        client.publish({
+            destination: `/pub/chat/${chatroomId}`,
+            body: JSON.stringify({
+                sender: userId,
+                data: chat,
+            }),
+        });
+        setChat(""); // 입력 필드 초기화
+    };
+
+    useEffect(() => {
+        connect(); // 컴포넌트 마운트 시 연결
+
+        return () => disConnect(); // 언마운트 시 연결 해제
+    }, []);
+
+    // 메시지 입력 핸들러
+    const onChangeChat = (e) => setChat(e.target.value);
+
+    // form 전송 핸들러
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        sendChat();
+    };
+
     return (
         <ChattingAppContainer>
+            {/* UI 구성은 chat의 코드 유지 */}
             <RecentAuctionsHeader>
-                <img src='/assets/back_1.svg' size={30} color="#4D7EFF" />
+                <img src='/assets/back_1.svg' onClick={() => navigate(-1)} alt="Back" />
                 <HeaderTitle>채팅</HeaderTitle>
-                <img src='/assets/exit.svg' size={30} color="#4D7EFF" />
+                <img src='/assets/exit.svg' onClick={() => navigate('/chatlist')} alt="Exit" />
             </RecentAuctionsHeader>
             <ChattingTopic>
-                <ImagePlaceholder />
-                <TopicInfo>
-                    <p className='topicTitle'>넷플릭스 4인팟 구해요</p>
-                    <p className='price'>₩5,000</p>
-                </TopicInfo>
-                <StatusWrapper>
-                    <span className='statusBadge'>진행중</span>
-                    <div className='peopleCount'>
-                        <PeopleIcon src="/assets/people_1.svg" alt="people" />
-                        <PeopleText>2/3</PeopleText>
-                    </div>
-                </StatusWrapper>
+                {/* 토픽 정보 UI */}
             </ChattingTopic>
             <ChattingContainer>
-
-                <div className='chatDate'>2024년 10월 22일 목요일</div>
-
-                {/* 채팅 */}
-                <ChatMessageContainer>
-                    <SenderName>익명1</SenderName>
-                    <ChatMessageWrapper>
-                        <ChatBubble>
-                            <Message>안녕하세요</Message>
-                        </ChatBubble>
-                        <MessageTime>오전 1:49</MessageTime>
-                    </ChatMessageWrapper>
-                </ChatMessageContainer>
-
-                <MyChatBubbleContainer>
-                    <MyChatMessageWrapper>
-                        <MyMessageTime>오전 1:49</MyMessageTime>
-                        <MyChatBubble>
-                            <Message>안녕하세요</Message>
-                        </MyChatBubble>
-                    </MyChatMessageWrapper>
-                </MyChatBubbleContainer>
+                <div className="chatDate">2024년 10월 22일 목요일</div>
+                {chatList.map((msg, idx) => (
+                    msg.sender !== userId ? (
+                        <ChatMessageContainer key={idx}>
+                            <SenderName>익명{msg.sender}</SenderName>
+                            <ChatMessageWrapper>
+                                <ChatBubble>
+                                    <Message>{msg.data}</Message>
+                                </ChatBubble>
+                                <MessageTime>{msg.time}</MessageTime>
+                            </ChatMessageWrapper>
+                        </ChatMessageContainer>
+                    ) : (
+                        <MyChatBubbleContainer key={idx}>
+                            <MyChatMessageWrapper>
+                                <MyMessageTime>{msg.time}</MyMessageTime>
+                                <MyChatBubble>
+                                    <Message>{msg.data}</Message>
+                                </MyChatBubble>
+                            </MyChatMessageWrapper>
+                        </MyChatBubbleContainer>
+                    )
+                ))}
             </ChattingContainer>
-            <ChatInputContainer>
-                <ChatInput placeholder="메시지 보내기" />
-                <SendButton src="/assets/send.svg" alt="send" />
+            <ChatInputContainer onSubmit={handleSubmit}>
+                <ChatInput
+                    placeholder="메시지 보내기"
+                    value={chat}
+                    onChange={onChangeChat}
+                    onKeyDown={(e) => e.key === 'Enter' && sendChat()}
+                />
+                <SendButton src="/assets/send.svg" onClick={sendChat} alt="send" />
             </ChatInputContainer>
         </ChattingAppContainer>
     );
 };
 
 export default Chatting;
+
 
 const ChattingAppContainer = styled.div`
   position: relative;
