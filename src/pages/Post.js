@@ -44,7 +44,7 @@ function Post() {
                 <HeaderTitle>공동구매</HeaderTitle>
             </RecentAuctionsHeader>
 
-            <div className="container">
+            <div className="container1">
                 <div className="purchase-form">
                     <div className="image-upload">
                         <div className="image-placeholder"></div>

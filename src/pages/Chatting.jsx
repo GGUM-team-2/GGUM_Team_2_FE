@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import SockJS from "sockjs-client";
+// import SockJS from "sockjs-client";
 import { Client as StompClient } from "@stomp/stompjs"; // `Client` 사용
 
 const Chatting = () => {
@@ -11,46 +11,46 @@ const Chatting = () => {
     const [chat, setChat] = useState("");
     const [chatList, setChatList] = useState([]);
 
-    const connect = () => {
-        const socket = new SockJS("http://43.202.86.73:8080/ws-stomp");
-        const client = new StompClient({
-            webSocketFactory: () => socket,
-            reconnectDelay: 5000, // 자동 재연결 설정
-            heartbeatIncoming: 4000,
-            heartbeatOutgoing: 4000,
-        });
+    // const connect = () => {
+    //     // const socket = new SockJS("http://43.202.86.73:8080/ws-stomp");
+    //     const client = new StompClient({
+    //         webSocketFactory: () => socket,
+    //         reconnectDelay: 5000, // 자동 재연결 설정
+    //         heartbeatIncoming: 4000,
+    //         heartbeatOutgoing: 4000,
+    //     });
 
-        client.onConnect = (frame) => {
-            console.log("Connected: " + frame);
-            setRoomId(roomId.trim());
-            setUserId(userId.trim());
-            setUsername(username.trim());
+    //     client.onConnect = (frame) => {
+    //         console.log("Connected: " + frame);
+    //         setRoomId(roomId.trim());
+    //         setUserId(userId.trim());
+    //         setUsername(username.trim());
 
-            // 채팅 메시지 수신 구독
-            client.subscribe(`/sub/chat/room/${roomId}`, (message) => {
-                const msg = JSON.parse(message.body);
-                showMessage(msg);
-            });
+    //         // 채팅 메시지 수신 구독
+    //         client.subscribe(`/sub/chat/room/${roomId}`, (message) => {
+    //             const msg = JSON.parse(message.body);
+    //             showMessage(msg);
+    //         });
 
-            // 유저 입장 메시지 전송
-            const enterMessage = {
-                userId,
-                roomId,
-                content: `${username} has entered the room.`,
-                username,
-                type: "ENTER",
-            };
-            client.publish({ destination: `/pub/api/v1/chat/room/${roomId}/send`, body: JSON.stringify(enterMessage) });
+    //         // 유저 입장 메시지 전송
+    //         const enterMessage = {
+    //             userId,
+    //             roomId,
+    //             content: `${username} has entered the room.`,
+    //             username,
+    //             type: "ENTER",
+    //         };
+    //         client.publish({ destination: `/pub/api/v1/chat/room/${roomId}/send`, body: JSON.stringify(enterMessage) });
 
-            setStompClient(client);
-        };
+    //         setStompClient(client);
+    //     };
 
-        client.onStompError = (error) => {
-            console.error("Connection error:", error);
-        };
+    //     client.onStompError = (error) => {
+    //         console.error("Connection error:", error);
+    //     };
 
-        client.activate();
-    };
+    //     client.activate();
+    // };
 
     const showMessage = (message) => {
         setChatList((prevChats) => [...prevChats, message]);
@@ -101,7 +101,7 @@ const Chatting = () => {
                     <Label>Room ID:</Label>
                     <Input type="text" value={roomId} onChange={(e) => setRoomId(e.target.value)} placeholder="Enter Room ID" />
                 </div>
-                <Button onClick={connect}>Connect</Button>
+                {/* <Button onClick={connect}>Connect</Button> */}
             </TopControls>
             <MessagesContainer>
                 {chatList.map((msg, idx) => (
