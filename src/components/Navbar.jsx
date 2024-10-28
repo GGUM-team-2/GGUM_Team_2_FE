@@ -23,7 +23,7 @@ const Navbar = () => {
       <NavItem onClick={() => handleClick('홈', '/main')}>
         {active === '홈' ? <HomeIcon /> : <HomeInactiveIcon />}
       </NavItem>
-      <NavItem onClick={() => handleClick('채팅', '/chat')}>
+      <NavItem onClick={() => handleClick('채팅', '/chatlist')}>
         {active === '채팅' ? <MessageIcon /> : <MessageInactiveIcon />}
       </NavItem>
       <NavItem onClick={() => handleClick('마이', '/my')}>

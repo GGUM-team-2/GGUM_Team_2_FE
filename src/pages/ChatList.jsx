@@ -5,8 +5,11 @@ import AuctionItem from '../components/main/AuctionItem';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { SearchAll } from '../api/SearchAll';
+import { FindChatList } from '../api/chat/FindChatList';
+import { BringUserId } from '../api/detail/BringUserId';
+import ChatingItem from '../components/main/ChatingItem';
 
-const Main = () => {
+const ChatList = () => {
   const { authData } = useAuth();
   const [selectedFilter, setSelectedFilter] = useState('전체');
   const [dataList, setDataList] = useState([]); // 빈 배열로 초기화
@@ -17,13 +20,18 @@ const Main = () => {
 
   const loadData = async () => {
     try {
-      console.log(authData.token);
-      const result = await SearchAll("GROUP_PURCHASE", "OPEN", 0, 5, authData.token);
-      setDataList(result.posts || []); // result.posts가 없을 경우 빈 배열 설정
+      const result = await BringUserId(authData.token);
+      console.log("UserId: ", result);
+      
+      // FindChatList 함수에서 반환된 데이터를 dataList에 설정
+      const chatList = await FindChatList(result);
+      setDataList(chatList || []); // chatList가 undefined인 경우 빈 배열로 설정
+      console.log("Chat List: ", chatList);
     } catch (error) {
       console.error("Failed to load data:", error);
     }
   };
+  
 
   useEffect(() => {
     loadData();
@@ -38,7 +46,7 @@ const Main = () => {
     <RecentAuctions>
       <RecentAuctionsHeader>
         <img src='/assets/back_1.svg' size={30} color="#4D7EFF" />
-        <HeaderTitle>공동구매</HeaderTitle>
+        <HeaderTitle>채팅</HeaderTitle>
         <img src='/assets/search_1.svg' size={30} color="#4D7EFF" />
       </RecentAuctionsHeader>
 
@@ -64,24 +72,18 @@ const Main = () => {
       </CategoryFilter>
 
       <AuctionList>
-        {dataList.map((auction) => (
-          <AuctionItem auction={auction} key={auction.postId} />
+        {dataList.map((auction,index) => (
+          <ChatingItem dataList={dataList[index]} key={auction.postId} />
         ))}
       </AuctionList>
-
-      <CircleButton onClick={goToPost}>
-        +
-      </CircleButton>
     </RecentAuctions>
   );
 };
 
-export default Main;
+export default ChatList;
 
 const RecentAuctions = styled.div`
   width: 375px;
-  height: 100vh; /* 화면 전체 높이 */
-  overflow-y: auto; /* 세로 스크롤 가능 */
 `;
 
 const RecentAuctionsHeader = styled.div`
@@ -99,7 +101,7 @@ const HeaderTitle = styled.h2`
   font-size: 18px;
   font-weight: var(--weight-bold);
   font-family: 'NotoSansKR', sans-serif;
-  line-height: 1.4;
+  line-height:1.4;
   margin: 0;
 `;
 
@@ -124,7 +126,9 @@ const FilterButton = styled.button`
   width: 72px;
   height: 30px;
   cursor: pointer;
-  line-height: 1.2;
+  line-height: 1.2;  /* 텍스트 줄 높이 추가 */
+
+  /* 패딩 조정 */
   padding: 0 10px;
 
   &:hover {
@@ -133,26 +137,10 @@ const FilterButton = styled.button`
   }
 `;
 
+
 const AuctionList = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0 20px;
   margin-bottom: 100px;
-`;
-
-const CircleButton = styled.button`
-  position: fixed;
-  bottom: 120px;
-  right: 20px;
-  width: 50px;
-  height: 50px;
-  background-color: var(--color-point1);
-  border: none;
-  border-radius: 50%;
-  color: white;
-  font-size: 36px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
 `;

@@ -1,20 +1,37 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+// src/components/LandingPage.js
+import React, { useEffect, useState } from 'react';
 import './LandingPage.css';
+import { useAuth } from '../context/AuthContext';
+import { login } from '../api/login/login';
+import { useNavigate } from 'react-router-dom';
 
 const LandingPage = () => {
+  const { authData, saveAuthData } = useAuth();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const navigate=useNavigate();
-  const gotoMain=()=>{
+  const goToMain=()=>{
     navigate('/main');
   }
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
+    
+    const result = await login(email, password);
+    if (result.token) {
+      saveAuthData(result);
+    }
   };
 
+  // authData가 업데이트될 때마다 값을 확인
+  useEffect(() => {
+    if (authData) {
+      console.log('Updated authData:', authData);
+      goToMain();
+    }
+  }, [authData]); // authData가 변경될 때마다 실행
   return (
     <div className="landing-page">
       <div className="app-info">
@@ -48,18 +65,14 @@ const LandingPage = () => {
             placeholder="비밀번호"
           />
         </div>
-        {/* <div className="form-group">
-          <div className="forgot-password">
-          <a href="">비밀번호 찾기</a>
-          </div>
-        </div> */}
+        
         <div className="form-group">
-          <input type="submit" className="login-btn" value={'로그인'} onClick={gotoMain}/>
-          </div>        
+          <input type="submit" className="login-btn" value={'로그인'} />
+        </div>        
       </form>
 
       <div className="signup-link">
-        <p>아직 회원이 아니신가요? <a href="/SignupPage" className='signup-color'>회원가입</a></p>
+        <p>아직 회원이 아니신가요? <a href="/signup" className='signup-color'>회원가입</a></p>
       </div>
     </div>
   );

@@ -1,28 +1,31 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
-const AuctionItem = ({ auction }) => {
+const ChatingItem = ({ dataList }) => {
   const [isLiked, setIsLiked] = useState(false);
   const navigate = useNavigate();
 
+  useEffect(()=>{
+    console.log(dataList);
+  },[])
   const toggleLike = () => {
     setIsLiked(!isLiked);
   };
 
-  const goToDetail = () => {
-    navigate(`/detail/${auction.postId}`, { state: { auction } });
-  };
+//   const goToDetail = () => {
+//     navigate(`/detail/${auction.postId}`, { state: { auction } });
+//   };
 
   return (
-    <AuctionItemContainer onClick={goToDetail}>
-      <AuctionItemImage alt={auction.title} />
+    <AuctionItemContainer>
+      <AuctionItemImage alt={dataList.roomName} />
       <AuctionItemDetails>
         <AuctionItemHeader>
           <AuctionItemTitle>
-            {auction.title}
-            <AuctionItemDesc>{auction.postType}</AuctionItemDesc>
+          {dataList.roomName}
+            <AuctionItemDesc>{dataList.latestMessage}</AuctionItemDesc>
           </AuctionItemTitle>
           <AuctionItemHeart onClick={(e) => {
             e.stopPropagation(); // 클릭 이벤트가 부모로 전파되지 않도록 설정
@@ -35,17 +38,17 @@ const AuctionItem = ({ auction }) => {
         <AuctionItemInfoContainer>
           <PeopleInfo>
             <AuctionItemPeopleIcon src="/assets/people_1.svg" alt="people" />
-            <PeopleCount>{auction.participantCount}/{auction.participantLimit}</PeopleCount>
+            <PeopleCount>{dataList.participantCount}/{dataList.participantLimit}</PeopleCount>
           </PeopleInfo>
-          <AuctionItemPrice>가격 : {auction.price}</AuctionItemPrice>
+          {/* <AuctionItemPrice>가격 : {auction.price}</AuctionItemPrice> */}
         </AuctionItemInfoContainer>
-        <AuctionStatus status={auction.postStatus}>{auction.postStatus}</AuctionStatus>
+        {/* <AuctionStatus status={auction.postStatus}>{auction.postStatus}</AuctionStatus> */}
       </AuctionItemDetails>
     </AuctionItemContainer>
   );
 };
 
-export default AuctionItem;
+export default ChatingItem;
 
 const AuctionItemContainer = styled.div`
   display: flex;
