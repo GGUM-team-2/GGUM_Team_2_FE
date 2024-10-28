@@ -4,6 +4,7 @@ import { signup } from '../api/signup/signup';
 import { authCode } from '../api/signup/authCode';
 import { emailshoot } from '../api/signup/emailshoot';
 import { mailCheck } from '../api/signup/mailCheck';
+import { useNavigate } from 'react-router-dom';
 
 
 const SignupPage = () => {
@@ -15,6 +16,7 @@ const SignupPage = () => {
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
     const [confirmPasswordError, setConfirmPasswordError] = useState('');
+    const navigate=useNavigate()
 
     const isEmailValid = /^[a-zA-Z0-9._%+-]+@catholic\.ac\.kr$/.test(email);
     const isPasswordValid = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(password);
@@ -23,10 +25,13 @@ const SignupPage = () => {
     const initSignup=()=>{
         console.log("all is,",email,userName,password)
         signup(email,userName,password);
+        navigate('/');
+
     }
     //인증번호확인
     const verifyCode=()=>{
         emailshoot(email);
+        
     }
 
     const codeCheck=()=>{

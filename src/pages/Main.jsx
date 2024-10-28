@@ -18,7 +18,7 @@ const Main = () => {
   const loadData = async () => {
     try {
       console.log(authData.token);
-      const result = await SearchAll("GROUP_PURCHASE", "OPEN", 0, 4, authData.token);
+      const result = await SearchAll("GROUP_PURCHASE", "OPEN", 0, 5, authData.token);
       setDataList(result.posts || []); // result.posts가 없을 경우 빈 배열 설정
     } catch (error) {
       console.error("Failed to load data:", error);

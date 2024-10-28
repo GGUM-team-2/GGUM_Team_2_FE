@@ -72,7 +72,7 @@ const LandingPage = () => {
       </form>
 
       <div className="signup-link">
-        <p>아직 회원이 아니신가요? <a href="/SignupPage" className='signup-color'>회원가입</a></p>
+        <p>아직 회원이 아니신가요? <a href="/signup" className='signup-color'>회원가입</a></p>
       </div>
     </div>
   );

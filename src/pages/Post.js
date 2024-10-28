@@ -3,6 +3,7 @@ import '../css/pages/Post.css';
 import styled from 'styled-components';
 import { CobuyPost } from '../api/post/CobuyPost';
 import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 function Post() {
     const [count, setCount] = useState(1);
@@ -11,10 +12,13 @@ function Post() {
     const [price, setPrice] = useState(0);
     const [category, setCategory] = useState("");
     const { authData, saveAuthData } = useAuth();
+    const navigate=useNavigate();
 
     const incrementCount = () => setCount(count + 1);
     const decrementCount = () => count > 1 && setCount(count - 1);
-
+    const gotoMain=()=>{
+        navigate('/main');
+    }
     const initcobuyPost = async (e) => {
         e.preventDefault();
         console.log(title, content, price, category, count);
@@ -36,7 +40,7 @@ function Post() {
     return (
         <>
             <RecentAuctionsHeader>
-                <BackButton src='/assets/back_1.svg' />
+                <BackButton src='/assets/back_1.svg' onClick={gotoMain}/>
                 <HeaderTitle>공동구매</HeaderTitle>
             </RecentAuctionsHeader>
 
