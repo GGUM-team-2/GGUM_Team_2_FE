@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './LandingPage.css';
 
 const LandingPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const navigate=useNavigate();
+  const gotoMain=()=>{
+    navigate('/main');
+  }
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -49,7 +54,7 @@ const LandingPage = () => {
           </div>
         </div> */}
         <div className="form-group">
-          <input type="submit" className="login-btn" value={'로그인'}/>
+          <input type="submit" className="login-btn" value={'로그인'} onClick={gotoMain}/>
           </div>        
       </form>
 

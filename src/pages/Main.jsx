@@ -1,14 +1,12 @@
-// Main.js
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import mockAuctionData from '../components/main/mockAuctionData'; // import mock auction data
-import AuctionItem from '../components/main/AuctionItem'; // import AuctionItem
+import mockAuctionData from '../components/main/mockAuctionData';
+import AuctionItem from '../components/main/AuctionItem';
 
 const Main = () => {
-  const [selectedFilter, setSelectedFilter] = useState('전체'); // 선택된 필터 상태
+  const [selectedFilter, setSelectedFilter] = useState('전체');
 
   const handleFilterClick = (filter) => {
-    // 클릭된 버튼을 토글 (같은 버튼을 다시 클릭하면 선택 해제)
     setSelectedFilter(selectedFilter === filter ? null : filter);
   };
 
@@ -47,7 +45,6 @@ const Main = () => {
         ))}
       </AuctionList>
 
-      {/* Bottom Right Circle Button */}
       <CircleButton>
         +
       </CircleButton>
@@ -59,6 +56,8 @@ export default Main;
 
 const RecentAuctions = styled.div`
   width: 375px;
+  height: 100vh; /* 화면 전체 높이 */
+  overflow-y: auto; /* 세로 스크롤 가능 */
 `;
 
 const RecentAuctionsHeader = styled.div`
@@ -75,7 +74,7 @@ const HeaderTitle = styled.h2`
   font-size: 18px;
   font-weight: var(--weight-bold);
   font-family: 'NotoSansKR', sans-serif;
-  line-height:1.4;
+  line-height: 1.4;
   margin: 0;
 `;
 
@@ -100,9 +99,7 @@ const FilterButton = styled.button`
   width: 72px;
   height: 30px;
   cursor: pointer;
-  line-height: 1.2;  /* 텍스트 줄 높이 추가 */
-
-  /* 패딩 조정 */
+  line-height: 1.2;
   padding: 0 10px;
 
   &:hover {
@@ -111,7 +108,6 @@ const FilterButton = styled.button`
   }
 `;
 
-
 const AuctionList = styled.div`
   display: flex;
   flex-direction: column;
@@ -119,7 +115,6 @@ const AuctionList = styled.div`
   margin-bottom: 100px;
 `;
 
-/* 원형 버튼 */
 const CircleButton = styled.button`
   position: fixed;
   bottom: 120px;

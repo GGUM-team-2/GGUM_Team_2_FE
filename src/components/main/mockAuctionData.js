@@ -53,6 +53,28 @@ const mockAuctionData = [
       currentBidderCount: 0,
       price: 50000
       ,likeCount:5
+    },
+    {
+      id: 6,
+      img: '/assets/picture5.svg',
+      title: '한끼통살 공구합니다',
+      desc: '3가지 맛',
+      category: '식품',
+      status:"진행중",
+      currentBidderCount: 0,
+      price: 50000
+      ,likeCount:5
+    },
+    {
+      id: 7,
+      img: '/assets/picture5.svg',
+      title: '한끼통살 공구합니다',
+      desc: '3가지 맛',
+      category: '식품',
+      status:"진행중",
+      currentBidderCount: 0,
+      price: 50000
+      ,likeCount:5
     }
   ];
   
