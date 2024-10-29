@@ -11,6 +11,8 @@ const ChatList = () => {
   const [selectedFilter, setSelectedFilter] = useState('전체');
   const [dataList, setDataList] = useState([]);
 
+  
+
   const handleFilterClick = (filter) => {
     setSelectedFilter(selectedFilter === filter ? null : filter);
   };
@@ -40,7 +42,7 @@ const ChatList = () => {
   return (
     <RecentAuctions>
       <RecentAuctionsHeader>
-        <img src='/assets/back_1.svg' size={30} color="#4D7EFF" />
+        <img src='/assets/back_1.svg' size={30} color="#4D7EFF" onClick={navigate('/main')}/>
         <HeaderTitle>채팅</HeaderTitle>
         <img src='/assets/search_1.svg' size={30} color="#4D7EFF" />
       </RecentAuctionsHeader>
