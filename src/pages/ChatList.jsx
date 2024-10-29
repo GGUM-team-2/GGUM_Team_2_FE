@@ -1,18 +1,15 @@
-// Main.js
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import AuctionItem from '../components/main/AuctionItem';
+import ChatingItem from '../components/main/ChatingItem';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { SearchAll } from '../api/SearchAll';
 import { FindChatList } from '../api/chat/FindChatList';
 import { BringUserId } from '../api/detail/BringUserId';
-import ChatingItem from '../components/main/ChatingItem';
 
 const ChatList = () => {
   const { authData } = useAuth();
   const [selectedFilter, setSelectedFilter] = useState('전체');
-  const [dataList, setDataList] = useState([]); // 빈 배열로 초기화
+  const [dataList, setDataList] = useState([]);
 
   const handleFilterClick = (filter) => {
     setSelectedFilter(selectedFilter === filter ? null : filter);
@@ -23,16 +20,14 @@ const ChatList = () => {
       const result = await BringUserId(authData.token);
       console.log("UserId: ", result);
       
-      // FindChatList 함수에서 반환된 데이터를 dataList에 설정
       const chatList = await FindChatList(result);
-      setDataList(chatList || []); // chatList가 undefined인 경우 빈 배열로 설정
+      setDataList(chatList || []);
       console.log("Chat List: ", chatList);
     } catch (error) {
       console.error("Failed to load data:", error);
     }
   };
   
-
   useEffect(() => {
     loadData();
   }, []);
@@ -72,7 +67,7 @@ const ChatList = () => {
       </CategoryFilter>
 
       <AuctionList>
-        {dataList.map((auction,index) => (
+        {dataList.map((auction, index) => (
           <ChatingItem dataList={dataList[index]} key={auction.postId} />
         ))}
       </AuctionList>
@@ -83,7 +78,11 @@ const ChatList = () => {
 export default ChatList;
 
 const RecentAuctions = styled.div`
-  width: 375px;
+  width:375px;
+  height: 100vh; /* 화면 전체 높이 */
+  overflow-y: auto; /* 세로 스크롤 가능 */
+  padding-top: 0; /* 상단 여백 제거 */
+  margin: 0; /* 외부 여백 제거 */
 `;
 
 const RecentAuctionsHeader = styled.div`
@@ -94,14 +93,14 @@ const RecentAuctionsHeader = styled.div`
   background-color: #ffffff;
   border-bottom: 1px solid #EFEFEF;
   padding: 0 20px;
-  z-index:10;
+  z-index: 10;
 `;
 
 const HeaderTitle = styled.h2`
   font-size: 18px;
   font-weight: var(--weight-bold);
   font-family: 'NotoSansKR', sans-serif;
-  line-height:1.4;
+  line-height: 1.4;
   margin: 0;
 `;
 
@@ -110,7 +109,7 @@ const CategoryFilter = styled.div`
   height: 30px;
   display: flex;
   justify-content: space-around;
-  margin: 20px;
+  margin: 20px auto; /* 가운데 정렬 */
   border-radius: 8px;
 `;
 
@@ -126,9 +125,7 @@ const FilterButton = styled.button`
   width: 72px;
   height: 30px;
   cursor: pointer;
-  line-height: 1.2;  /* 텍스트 줄 높이 추가 */
-
-  /* 패딩 조정 */
+  line-height: 1.2;
   padding: 0 10px;
 
   &:hover {
@@ -136,7 +133,6 @@ const FilterButton = styled.button`
     color: white;
   }
 `;
-
 
 const AuctionList = styled.div`
   display: flex;

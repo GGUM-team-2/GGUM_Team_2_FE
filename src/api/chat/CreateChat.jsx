@@ -7,10 +7,10 @@ export const CreateChat = async (title, creatorId, currentUser, postId) => {
     const intPost = parseInt(postId, 10);
 
     // API 요청
-    const response = await axios.post('http://43.202.86.73:8080/api/v1/chat/room', {
+    const response = await axios.post('http://43.202.86.73:8080/api/chat/room', {
       roomName: title,
       creatorId: intCreator,
-      userIds: currentUser, // currentUser를 전달된 파라미터로 사용
+      userIds: [currentUser], // currentUser를 전달된 파라미터로 사용
       postId: intPost
     });
 

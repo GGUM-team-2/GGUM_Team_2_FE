@@ -107,7 +107,7 @@ const ItemDetail = () => {
           <img className='infoarrow' src='/assets/detail/userinfo_back.svg' alt='바로가기' />
         </div>
 
-        <p className="description">{auction.description}</p>
+        <p className="description">{auction.content}</p>
         <ButtonContainer>
           <GroupStatusButton>
             <AuctionItemPeopleIcon src="/assets/people_1.svg" alt="people" />

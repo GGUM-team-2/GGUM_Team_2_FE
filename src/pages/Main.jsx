@@ -18,7 +18,7 @@ const Main = () => {
   const loadData = async () => {
     try {
       console.log(authData.token);
-      const result = await SearchAll("GROUP_PURCHASE", "OPEN", 0, 4, authData.token);
+      const result = await SearchAll("GROUP_PURCHASE", "OPEN", 0, 5, authData.token);
       setDataList(result.posts || []); // result.posts가 없을 경우 빈 배열 설정
     } catch (error) {
       console.error("Failed to load data:", error);
@@ -80,6 +80,8 @@ export default Main;
 
 const RecentAuctions = styled.div`
   width: 375px;
+  height: 100vh; /* 화면 전체 높이 */
+  overflow-y: auto; /* 세로 스크롤 가능 */
 `;
 
 const RecentAuctionsHeader = styled.div`
@@ -97,7 +99,7 @@ const HeaderTitle = styled.h2`
   font-size: 18px;
   font-weight: var(--weight-bold);
   font-family: 'NotoSansKR', sans-serif;
-  line-height:1.4;
+  line-height: 1.4;
   margin: 0;
 `;
 
@@ -122,9 +124,7 @@ const FilterButton = styled.button`
   width: 72px;
   height: 30px;
   cursor: pointer;
-  line-height: 1.2;  /* 텍스트 줄 높이 추가 */
-
-  /* 패딩 조정 */
+  line-height: 1.2;
   padding: 0 10px;
 
   &:hover {
@@ -133,7 +133,6 @@ const FilterButton = styled.button`
   }
 `;
 
-
 const AuctionList = styled.div`
   display: flex;
   flex-direction: column;
@@ -141,7 +140,6 @@ const AuctionList = styled.div`
   margin-bottom: 100px;
 `;
 
-/* 원형 버튼 */
 const CircleButton = styled.button`
   position: fixed;
   bottom: 120px;

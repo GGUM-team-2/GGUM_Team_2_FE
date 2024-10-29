@@ -14,7 +14,7 @@ function MyPage() {
     };
 
     return (
-        <div className="container">
+        <div className="container-mypost">
             <header className="header">
                 <button className="back-button" onClick={() => handleClick('back')}>&larr;</button>
                 <h1>마이페이지</h1>
