@@ -5,6 +5,7 @@ import AuctionItem from '../components/main/AuctionItem';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { SearchAll } from '../api/SearchAll';
+import mockAuctionData from '../components/main/mockAuctionData';
 
 const Main = () => {
   const { authData } = useAuth();
@@ -19,7 +20,7 @@ const Main = () => {
     try {
       console.log(authData.token);
       const result = await SearchAll("GROUP_PURCHASE", "OPEN", 0, 5, authData.token);
-      setDataList(result.posts || []); // result.posts가 없을 경우 빈 배열 설정
+      setDataList(result.posts || mockAuctionData); // result.posts가 없을 경우 빈 배열 설정
     } catch (error) {
       console.error("Failed to load data:", error);
     }
@@ -64,10 +65,14 @@ const Main = () => {
       </CategoryFilter>
 
       <AuctionList>
-        {dataList.map((auction) => (
-          <AuctionItem auction={auction} key={auction.postId} />
-        ))}
+        {dataList.map((auction, index) => (
+      <AuctionItem 
+      auction={{ ...auction, img: mockAuctionData[index]?.img || auction.img }} 
+      key={auction.postId} 
+      />
+      ))}
       </AuctionList>
+
 
       <CircleButton onClick={goToPost}>
         +

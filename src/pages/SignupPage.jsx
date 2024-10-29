@@ -20,6 +20,9 @@ const SignupPage = () => {
 
     const isEmailValid = /^[a-zA-Z0-9._%+-]+@catholic\.ac\.kr$/.test(email);
     const isPasswordValid = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(password);
+    const goToLogin=()=>{
+        navigate('/');
+    }
 
     //회원가입
     const initSignup=()=>{
@@ -65,7 +68,7 @@ const SignupPage = () => {
     return (
         <SignupWrapper>
             <RecentAuctionsHeader>
-                <BackButton src='/assets/back_1.svg' alt="Back" />
+                <BackButton src='/assets/back_1.svg' alt="Back" onClick={goToLogin} />
                 <HeaderTitle>회원가입</HeaderTitle>
             </RecentAuctionsHeader>
             <SignUpForm>

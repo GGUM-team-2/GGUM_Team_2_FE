@@ -46,6 +46,11 @@
     max-width: 500px;
     min-height: 400px;
     background-color: #ddd;
+    background-image: url("./3.png");
+    background-size: cover;    /* 배경 이미지를 요소의 크기에 맞춰 확대/축소 */
+    background-repeat: no-repeat;    /* 이미지 반복을 막음 */
+    background-position: center;    /* 이미지를 가운데에 위치 */
+
 }
 
 /* 상품 정보 */

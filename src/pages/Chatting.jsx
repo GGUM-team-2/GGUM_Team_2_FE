@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 // import SockJS from "sockjs-client";
 import { Client as StompClient } from "@stomp/stompjs"; // `Client` 사용
+import { useNavigate } from "react-router-dom";
 
 const Chatting = () => {
     const [stompClient, setStompClient] = useState(null);
@@ -51,7 +52,7 @@ const Chatting = () => {
 
     //     client.activate();
     // };
-
+    const navigate=useNavigate();
     const showMessage = (message) => {
         setChatList((prevChats) => [...prevChats, message]);
     };

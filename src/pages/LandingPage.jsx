@@ -22,6 +22,7 @@ const LandingPage = () => {
     const result = await login(email, password);
     if (result.token) {
       saveAuthData(result);
+      goToMain();
     }
   };
 
@@ -35,7 +36,7 @@ const LandingPage = () => {
   return (
     <div className="landing-page">
       <div className="app-info">
-        <h1 className="app-title">쉐어인캣</h1>
+        <img src='/assets/mainLogo.svg' className="app-logo" alt="쉐어인캣 로고" />
         <p className="app-description">함께 사고 나누는 대학생 생활 편의 서비스</p>
       </div>
 
